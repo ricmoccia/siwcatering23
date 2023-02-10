@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='To delete buffet')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+	<h1>Buffet da rimuovere:</h1>
+	<div><span th:text="${buffet.nome}">nome</span>
+		<span th:text="${buffet.descrizione}">descrizione</span>
+	</div>  
+	<div> <a href="buffet.html" th:href="@{'/admin/deleteBuffet'+'/'+${buffet.id}}" th:text="CONFERMA">CONFERMA</a>
+	</div>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="headerfiles(title)">
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="/css/base-style.css">
+	<title th:text="${title}"></title>
+</head>
+
+<body>
+	<header th:fragment="intestazione">
+		<div class="topnav">
+			<a class="active" th:href="@{/}">Home</a>
+			<a th:href="@{/chef}">Elenco chef</a>
+			<a th:href="@{/buffet}">Elenco buffet</a>
+			<div class="login-container">
+				<form th:action="@{/login}" method="POST">
+					<input type="text" placeholder="Username" name="username">
+					<input type="password" placeholder="Password" name="password">
+					<button type="submit">Login</button>
+				</form>
+			</div>
+		</div>
+	</header>
+
+	<header th:fragment="intestazioneAdmin">
+		<div class="topnav">
+			<a class="active" th:href="@{/default}">Home</a>
+			<a th:href="@{/admin/chef}">Manage chef</a>
+			<a th:href="@{/admin/buffet}">Manage buffet</a>
+			<a th:href="@{/admin/piatto}">Manage piatti</a>
+			<a th:href="@{/admin/ingrediente}">Manage ingredienti</a>
+			<a th:href="@{/admin/register}">Register new admin</a>
+			<div class="login-container">
+				<a th:href="@{/logout}">Logout</a>
+			</div>
+		</div>
+	</header>
+
+
+	<p>Go to the next page to see fragments in action</p>
+	<aside>
+		<div>This is a sidebar</div>
+	</aside>
+	<div class="another">This is another sidebar</div>
+
+	<footer th:fragment="fondo">
+		<p class="text-center">Progetto siwcatering Riccardo Moccia</p>
+	</footer>
+
+</body>
+
+</html>

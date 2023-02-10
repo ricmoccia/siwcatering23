@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel=stylesheet href="base.css">
+	<title>Ingredienti</title>
+</head>
+
+<body>
+
+	<h2>Lista degli ingredienti</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Origine</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--se non ci sono ingredienti scrivi su tutta la riga-->
+			<tr th:if="${ingredienti.isEmpty()}">
+				<td colspan="3"> Non ci sono ingredienti </td>
+			</tr>
+			<!--se ci sono degli ingredienti, itera su tutti gli ingredienti con for-each-->
+			<tr th:each="ingrediente : ${ingredienti}">
+				<td>
+					<a href="ingrediente.html/0" th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}"
+						th:text="${ingrediente.nome} + ' ' +${ingrediente.origine}">basilico italiana</a>
+				</td>
+				<td>
+					<span th:text="${ingrediente.descrizione}">pianta</span>
+				</td>
+				<td><a href="ingrediente.html" th:href="@{'/toDeleteIngrediente'+'/'+${ingrediente.id}}"
+						th:text="cancella">cancella</a>
+				</td>
+				<td><a href="ingrediente.html" th:href="@{'/modificaIngrediente'+'/'+${ingrediente.id}}"
+						th:text="modifica">modifica</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+</body>
+
+</html>

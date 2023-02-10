@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title='home')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+
+	<div class="scrittaWelcome">WELCOME TO SIWCATERING</div>
+	<img class="immagineindex" th:src="@{/images/buffet8.jpeg}" src="../static/images/buffet8.jpeg">
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

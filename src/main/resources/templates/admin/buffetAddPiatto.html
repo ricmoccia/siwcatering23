@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='buffetAddPiatto')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+
+
+	<h1 th:text="${buffet.nome}+' '+${buffet.descrizione}">nome e descrizione</h1>
+
+	<h3 th:if="${listaPiatti.size()!=0}"> Piatti che si possono aggiungere:</h3>
+	<h3 th:unless="${listaPiatti.size()!=0}"> Non ci sono piatti che si possono aggiungere</h3>
+
+	<div th:each="piatto:${listaPiatti}">
+		<p> <a href="admin/piatto.html" th:href="@{'/admin/piatto'+'/'+${piatto.id}}" th:text="${piatto.nome}">nome
+				piatto</a> </p>
+		<form th:action="@{'/admin/addPiatto'+'/'+${buffet.id}+'/'+${piatto.id}}" method="POST">
+			<span><button type="Aggiungi">Aggiungi</button></span>
+		</form>
+	</div>
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

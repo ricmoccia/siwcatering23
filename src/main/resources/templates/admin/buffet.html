@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli buffet')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+
+	<div>
+		<h2>Dettagli buffet</h2>
+		<div><span th:text="${buffet.nome}">nome</span>
+			<span th:text="${buffet.descrizione}">descrizione</span>
+		</div>  
+	</div>
+	<div>
+		<a href="buffetAddPiatto.html" th:href="@{'/admin/buffetAddPiatto'+'/'+${buffet.id}}">Aggiungi piatto al
+			buffet</a>
+	</div>
+	<div th:if="${buffet.getChef()!=null}">
+		<h4>Il buffet e' stato preparato dallo chef: </h4><span th:text="${chef.nome}">nome</span>
+		<span th:text="${chef.cognome}">cognome</span>
+	</div>
+
+	<h4 th:if="${listaPiatti!=null}">Elenco dei piatti presenti nel buffet:</h4>
+	<table th:if="${listaPiatti!=null}" class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+				<th colspan="3">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="piatto:${listaPiatti}">
+				<td th:text="${piatto.nome}">nome</td>
+				<td th:text="${piatto.descrizione}">descrizione</td>
+
+				<td><a href="piatto.html" th:href="@{'/admin/piatto'+'/'+${piatto.id}}" th:text="dettagli">dettagli</a>
+				</td>
+				<td><a href="piatto.html" th:href="@{'/admin/toDeletePiatto'+'/'+${piatto.id}}"
+						th:text="cancella">cancella</a>
+				</td>
+				<td><a href="piatto.html" th:href="@{'/admin/modificaPiatto'+'/'+${piatto.id}}"
+						th:text="modifica">modifica</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	  <footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

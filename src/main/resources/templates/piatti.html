@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel=stylesheet href="base.css">
+	<title>Piatti</title>
+</head>
+
+<body>
+
+	<h2>Lista dei piatti</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--se non ci sono piatti scrivi su tutta la riga-->
+			<tr th:if="${piatti.isEmpty()}">
+				<td colspan="3"> Non ci sono piatti </td>
+			</tr>
+			<!--se ci sono dei piatti, itera su tutti i piatti con for-each-->
+			<tr th:each="piatto : ${piatti}">
+				<td>
+					<a href="piatto.html/0" th:href="@{'/piatto' + '/' + ${piatto.id}}"
+						th:text="${piatto.nome} + ' ' +${piatto.descrizione}">pasta primo</a>
+				</td>
+				
+				<td><a href="piatto.html" th:href="@{'/toDeletePiatto'+'/'+${piatto.id}}"
+						th:text="cancella">cancella</a>
+				</td>
+				<td><a href="piatto.html" th:href="@{'/modificaPiatto'+'/'+${piatto.id}}"
+						th:text="modifica">modifica</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+</body>
+
+</html>

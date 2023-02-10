@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli piatto')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+
+
+	<h2>Dettagli piatto</h2>
+
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${piatto.nome}">nome</td>
+				<td th:text="${piatto.descrizione}">descrizione</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h4 th:if="${listaBuffet!=null}">Elenco degli ingredienti nel piatto:</h4>
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Origine</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ingrediente:${listaIngredienti}">
+				<td><a href="ingrediente.html/0" th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}"
+						th:text="${ingrediente.nome}">nome</a>
+				</td>
+				<td th:text="${ingrediente.origine}">origine</td>
+				<td th:text="${ingrediente.descrizione}">descrizione</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli piatto')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+	<div>
+		<h2>Dettagli piatto</h2>
+		<div><span th:text="${piatto.nome}">pasta</span>
+			<span th:text="${piatto.descrizione}">primo</span>
+		</div>  
+	</div>
+
+	<div>
+		<a href="piattoAddIngrediente.html" th:href="@{'/admin/piattoAddIngrediente'+'/'+${piatto.id}}">Aggiungi
+			ingrediente al piatto</a>
+	</div>
+
+	<h4 th:if="${listaIngredienti!=null}">Elenco degli ingredienti presenti nel piatto:</h4>
+	<table th:if="${listaIngredienti!=null}" class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Origine</th>
+				<th>Descrizione</th>
+				<th colspan="3">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ingrediente:${listaIngredienti}">
+				<td th:text="${ingrediente.nome}">nome</td>
+				<td th:text="${ingrediente.origine}">origine</td>
+				<td th:text="${ingrediente.descrizione}">descrizione</td>
+
+				<td><a href="ingrediente.html" th:href="@{'/admin/ingrediente'+'/'+${ingrediente.id}}"
+						th:text="dettagli">dettagli</a>
+				</td>
+				<td><a href="ingrediente.html" th:href="@{'/admin/toDeleteIngrediente'+'/'+${ingrediente.id}}"
+						th:text="cancella">cancella</a>
+				</td>
+				<td><a href="ingrediente.html" th:href="@{'/admin/modificaIngrediente'+'/'+${ingrediente.id}}"
+						th:text="modifica">modifica</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

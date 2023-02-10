@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='To delete chef')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+	<h1>Chef da rimuovere:</h1>
+	<div><span th:text="${chef.nome}">Paolo</span>
+		<span th:text="${chef.cognome}">Rossi</span>
+		<span th:text="${chef.nazionalita}">Italiano</span>  
+	</div>  
+	<div> <a href="admin/chef.html/0" th:href="@{'/admin/deleteChef'+'/'+${chef.id}}" th:text="CONFERMA">CONFERMA</a>
+	</div>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

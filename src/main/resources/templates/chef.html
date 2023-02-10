@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli chef')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+	<div>
+		<h2>Dettagli chef</h2>
+		<div><span th:text="${chef.nome}">carlo</span>
+			<span th:text="${chef.cognome}">cracco</span>
+			<span th:text="${chef.nazionalita}">italiana</span>
+		</div>  
+	</div>
+
+	<h4 th:if="${listaBuffet.size()!=0}">Elenco dei buffet preparati dallo chef:</h4>
+	<table th:if="${listaBuffet.size()!=0}" class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="buffet:${listaBuffet}">
+				<td><a href="buffet.html/0" th:href="@{'/buffet' + '/' + ${buffet.id}}"
+						th:text="${buffet.nome}">nome</a>
+				</td>
+				<td th:text="${buffet.descrizione}">descrizione</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

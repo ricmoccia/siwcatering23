@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Buffets')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+	<h2>Lista dei buffets</h2>
+
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--se non ci sono buffets scrivi su tutta la riga-->
+			<tr th:if="${buffets.isEmpty()}">
+				<td colspan="3"> Non ci sono buffets </td>
+			</tr>
+			<!--se ci sono dei buffets, itera su tutti i buffets con for-each-->
+			<tr th:each="buffet:${buffets}">
+				<td>
+					<a href="buffet.html/0" th:href="@{'/buffet' + '/' + ${buffet.id}}"
+						th:text="${buffet.nome}">nome</a>
+				</td>
+				<td th:text="${buffet.descrizione}">descrizione
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

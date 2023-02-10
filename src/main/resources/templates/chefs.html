@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Chefs')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+
+	<h2>Lista degli chef</h2>
+
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th><a th:href="@{/orderchefs}">Nome</a></th>
+				<th>Cognome</th>
+				<th>Nazionalita</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--se non ci sono chef scrivi su tutta la riga-->
+			<tr th:if="${chefs.isEmpty()}">
+				<td colspan="3"> Non ci sono chef </td>
+			</tr>
+			<!--se ci sono degli chef, itera su tutti gli chef con for-each-->
+			<tr th:each="chef : ${chefs}">
+				<td>
+					<a href="chef.html/0" th:href="@{'/chef' + '/' + ${chef.id}}"
+						th:text="${chef.nome}">nome</a>
+				</td>
+				<td th:text="${chef.cognome}">cognome
+				</td>
+				<td>
+					<span th:text="${chef.nazionalita}">nazionalita</span>
+				</td>				
+			</tr>
+		</tbody>
+	</table>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

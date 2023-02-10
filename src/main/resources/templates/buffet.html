@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli buffet')">
+	<meta charset="UTF-8" />
+	<link rel=stylesheet href="/css/base-style.css">
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+
+	<div>
+		<h2>Dettagli buffet</h2>
+		<div><span th:text="${buffet.nome}">matrimonio</span>
+			<span th:text="${buffet.descrizione}">carne e pesce</span>
+		</div>  
+	</div>
+
+	<h4 th:if="${listaPiatti!=null}">Elenco dei piatti presenti nel buffet:</h4>
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="piatto:${listaPiatti}">
+				<td><a href="piatto.html/0" th:href="@{'/piatto' + '/' + ${piatto.id}}"
+						th:text="${piatto.nome}">nome</a>
+				</td>
+				<td th:text="${piatto.descrizione}">descrizione</td>
+			</tr>
+		</tbody>
+	</table>
+
+	  <footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

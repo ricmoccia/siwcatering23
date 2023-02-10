@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='modificaChefForm')">
+	<meta charset="UTF-8" />
+
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+
+	<form method="POST" th:action="@{/admin/chefEdited/{id}(id=${chef.id})}" th:object="${chef}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> errori </p>
+		</div>
+
+		<table>
+			<tbody>
+				<tr>
+					<td>Nome:</td>
+					<td>
+						<label>
+							<input th:field="*{nome}" th:value="*{nome}" type="text" />
+						</label>
+					</td>
+					<td><span th:errors="*{nome}" th:if="${#fields.hasErrors('nome')}">errore
+							nome</span></td>
+				</tr>
+				<tr>
+					<td>Cognome:</td>
+					<td>
+						<label>
+							<input th:field="*{cognome}" th:value="*{cognome}" type="text" />
+						</label>
+					</td>
+					<td><span th:errors="*{cognome}" th:if="${#fields.hasErrors('cognome')}">errore
+							cognome</span></td>
+				</tr>
+				<tr>
+					<td>Nazionalita:</td>
+					<td><label>
+							<input th:field="*{nazionalita}" th:value="*{nazionalita}" type="text" />
+						</label>
+					</td>
+					<td><span th:errors="*{nazionalita}" th:if="${#fields.hasErrors('nazionalita')}">errore
+							nazionalita</span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div>
+			<div><button class="button" type="submit" />Conferma</div>
+		</div>
+	</form>
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli ingrediente')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+
+
+	<h2>Dettagli ingrediente</h2>
+	
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Origine</th>
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${ingrediente.nome}">nome</td>
+				<td th:text="${ingrediente.origine}">origine</td>
+				<td th:text="${ingrediente.descrizione}">descrizione</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

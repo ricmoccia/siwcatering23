@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Ingredienti')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+	
+	<div>
+		<a th:href="@{/admin/ingredienteForm}">Inserisci ingrediente</a>
+	</div>
+
+	<h2>Lista degli ingredienti</h2>
+
+	<table class="tabella">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Origine</th>
+				<th>Descrizione</th>
+				<th colspan="2">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--se non ci sono ingredienti scrivi su tutta la riga-->
+			<tr th:if="${listaIngredienti==null}">
+				<td colspan="3"> Non ci sono ingredienti </td>
+			</tr>
+			<!--se ci sono degli ingredienti, itera su tutti gli ingredienti con for-each-->
+			<tr th:each="ingrediente : ${listaIngredienti}">
+				<td>
+					<a href="admin/ingrediente.html/0" th:href="@{'/admin/ingrediente' + '/' + ${ingrediente.id}}"
+						th:text="${ingrediente.nome}">nome</a>
+				</td>
+				<td th:text="${ingrediente.origine}">origine
+				</td>
+				<td>
+					<span th:text="${ingrediente.descrizione}">descrizione</span>
+				</td>
+				<td><a href="ingrediente.html" th:href="@{'/admin/toDeleteIngrediente'+'/'+${ingrediente.id}}"
+						th:text="cancella">cancella</a>
+				</td>
+				<td><a href="ingrediente.html" th:href="@{'/admin/modificaIngrediente'+'/'+${ingrediente.id}}"
+						th:text="modifica">modifica</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

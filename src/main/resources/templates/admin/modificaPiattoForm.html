@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel=stylesheet href="base.css">
+	<title>Piatti</title>
+</head>
+
+<body>
+	<form method="POST" th:action="@{/admin/piattoEdited/{id}(id=${piatto.id})}" th:object="${piatto}">
+		<div class="error-text" th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> errori </p>
+		</div>
+
+		<table>
+			<tbody>
+				<tr>
+					<td>Nome:</td>
+					<td>
+						<label>
+							<input th:field="*{nome}" th:value="*{nome}" type="text" />
+						</label>
+					</td>
+					<td><span th:errors="*{nome}" th:if="${#fields.hasErrors('nome')}">errore
+							nome</span></td>
+				</tr>
+				<tr>
+					<td>Descrizione:</td>
+					<td>
+						<label>
+							<input th:field="*{descrizione}" th:value="*{descrizione}" type="text" />
+						</label>
+					</td>
+					<td><span th:errors="*{descrizione}" th:if="${#fields.hasErrors('descrizione')}">errore
+							descrizione</span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div>
+			<div><button class="button" type="submit" />Conferma</div>
+		</div>
+	</form>
+
+
+</body>
+
+</html>

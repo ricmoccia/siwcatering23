@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='To delete ingrediente')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+
+	<h1>Ingrediente da rimuovere:</h1>
+	<div><span th:text="${ingrediente.nome}">basilico</span>
+		<span th:text="${ingrediente.origine}">italiana</span>
+		<span th:text="${ingrediente.descrizione}">pianta</span>  
+	</div>  
+	<div> <a href="admin/ingrediente.html" th:href="@{'/admin/deleteIngrediente'+'/'+${ingrediente.id}}"
+			th:text="CONFERMA">CONFERMA</a>
+	</div>
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

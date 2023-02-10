@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Ingrediente form')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+
+	<div>
+		<div>
+			<form method="POST" th:action="@{/admin/ingrediente}" th:object="${ingrediente}">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> errori </p>
+				</div>
+
+				<table>
+					<tbody>
+						<tr>
+							<td>Nome:</td>
+							<td>
+								<label>
+									<input th:field="*{nome}" type="text" />
+								</label>
+							</td>
+							<td><span th:errors="*{nome}" th:if="${#fields.hasErrors('nome')}">error
+									nome</span></td>
+						</tr>
+						<tr>
+							<td>Origine:</td>
+							<td>
+								<label>
+									<input th:field="*{origine}" type="text" />
+								</label>
+							</td>
+							<td><span class="error-text" th:errors="*{origine}"
+									th:if="${#fields.hasErrors('origine')}">error
+									origine</span></td>
+						</tr>
+						<tr>
+							<td>Descrizione:</td>
+							<td><label>
+									<input th:field="*{descrizione}" type="text" />
+								</label>
+							</td>
+							<td><span class="error-text" th:errors="*{descrizione}"
+									th:if="${#fields.hasErrors('descrizione')}">error
+									descrizione</span></td>
+						</tr>
+					</tbody>
+				</table>
+
+
+				<div>
+					<span><button type="submit">Conferma</button></span>
+				</div>
+		</div>
+		</form>
+	</div>
+
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

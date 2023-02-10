@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='To delete piatto')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+	<h1>Piatto da rimuovere:</h1>
+	<div><span th:text="${piatto.nome}">nome</span>
+		<span th:text="${piatto.descrizione}">descrizione</span>
+	</div>  
+	<div> <a href="piatto.html" th:href="@{'/admin/deletePiatto'+'/'+${piatto.id}}" th:text="CONFERMA">CONFERMA</a>
+	</div>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli ingrediente')">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
+	<div>
+		<h2>Dettagli ingrediente</h2>
+		<div><span th:text="${ingrediente.nome}">basilico</span>
+			<span th:text="${ingrediente.origine}">italia</span>
+			<span th:text="${ingrediente.descrizione}">pianta</span>  
+		</div>  
+	</div>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+
+</html>
