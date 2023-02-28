@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.progetto.catering.controller.validator.PiattoValidator;
 import it.progetto.catering.model.Buffet;
 import it.progetto.catering.model.Chef;
-import it.progetto.catering.model.Materiale;
-import it.progetto.catering.model.Attivita;
+import it.progetto.catering.model.Ingrediente;
+import it.progetto.catering.model.Piatto;
 import it.progetto.catering.service.BuffetService;
 import it.progetto.catering.service.IngredienteService;
 import it.progetto.catering.service.PiattoService;
@@ -27,7 +27,7 @@ import it.progetto.catering.service.PiattoService;
 public class PiattoController {
 
 	@Autowired
-	private PiattoService piattoService;
+	private PiattoService PiattoService;
 
 	@Autowired
 	private BuffetService buffetService;
@@ -36,23 +36,23 @@ public class PiattoController {
 	private IngredienteService ingredienteService;
 
 	@Autowired
-	private PiattoValidator piattoValidator;	
+	private PiattoValidator PiattoValidator;	
 
 
 
 
-	@GetMapping("/piatto/{id}")
+	@GetMapping("/Piatto/{id}")
 	public String getPiatto(@PathVariable("id") Long id, Model model) {
-		Attivita piatto = piattoService.findById(id);
-		model.addAttribute("piatto", piatto);
-		model.addAttribute("listaBuffet", piatto.getBuffets());
-		model.addAttribute("listaIngredienti", piatto.getIngredienti());
-		return "piatto.html"; //la vista successiva mostra i dettagli del piatto
+		Piatto Piatto = PiattoService.findById(id);
+		model.addAttribute("Piatto", Piatto);
+		model.addAttribute("listaBuffet", Piatto.getBuffets());
+		model.addAttribute("listaIngredienti", Piatto.getIngredienti());
+		return "piatto.html"; //la vista successiva mostra i dettagli del Piatto
 	}
 
 	@GetMapping("/piatti")
 	public String getAllPiatti(Model model) {
-		List<Attivita> listaPiatti = piattoService.findAll();
+		List<Piatto> listaPiatti = PiattoService.findAll();
 		model.addAttribute("listaPiatti", listaPiatti);
 		return "piatti.html";
 	}
@@ -64,42 +64,42 @@ public class PiattoController {
 
 
 
-	@GetMapping("/admin/piatto/{id}")
+	@GetMapping("/admin/Piatto/{id}")
 	public String getPiattoAdmin(@PathVariable("id") Long id, Model model) {
-		Attivita piatto = piattoService.findById(id);
-		model.addAttribute("piatto", piatto);
-		model.addAttribute("listaBuffet", piatto.getBuffets());
-		model.addAttribute("listaIngredienti", piatto.getIngredienti());
-		return "admin/piatto.html"; //la vista successiva mostra i dettagli del piatto
+		Piatto Piatto = PiattoService.findById(id);
+		model.addAttribute("Piatto", Piatto);
+		model.addAttribute("listaBuffet", Piatto.getBuffets());
+		model.addAttribute("listaIngredienti", Piatto.getIngredienti());
+		return "admin/piatto.html"; //la vista successiva mostra i dettagli del Piatto
 	}
 
-	@GetMapping("/admin/piatto")
+	@GetMapping("/admin/Piatto")
 	public String getAllPiattiAdmin(Model model) {
-		List<Attivita> listaPiatti = piattoService.findAll();
+		List<Piatto> listaPiatti = PiattoService.findAll();
 		model.addAttribute("listaPiatti", listaPiatti);
 		return "admin/piatti.html";
 	}
 
-	/*Questo metodo che ritorna la form, prima di ritornarla, mette nel modello un ogg piatto appena creato*/
-	@GetMapping("/admin/piattoForm")
+	/*Questo metodo che ritorna la form, prima di ritornarla, mette nel modello un ogg Piatto appena creato*/
+	@GetMapping("/admin/PiattoForm")
 	public String getPiattoFormAdmin(Model model) {
-		//in questo modo piattoForm ha un ogg Piatto a disposizione(senza questa op. non l'avrebbe avuto)
-		model.addAttribute("piatto", new Attivita());
+		//in questo modo PiattoForm ha un ogg Piatto a disposizione(senza questa op. non l'avrebbe avuto)
+		model.addAttribute("Piatto", new Piatto());
 		return "admin/piattoForm.html"; 		
 	}	
 
 
-	@PostMapping("/admin/piatto")
-	public String addPiattoAdmin(@Valid @ModelAttribute("piatto") Attivita piatto, BindingResult bindingResult, Model model) {
-		piattoValidator.validate(piatto, bindingResult);//se lo chef che cerco di inserire e gia presente annullo l'inserimento, bindingResult da l'errore
+	@PostMapping("/admin/Piatto")
+	public String addPiattoAdmin(@Valid @ModelAttribute("Piatto") Piatto Piatto, BindingResult bindingResult, Model model) {
+		PiattoValidator.validate(Piatto, bindingResult);//se lo chef che cerco di inserire e gia presente annullo l'inserimento, bindingResult da l'errore
 		//prima di salvare l'ogg. persona dobbiamo verificare che non ci siano stati errori di validazione
 		if(!bindingResult.hasErrors()) {//se non ci sono stati err di validazione
-			piattoService.save(piatto);
-			model.addAttribute("piatto", piatto);
+			PiattoService.save(Piatto);
+			model.addAttribute("Piatto", Piatto);
 			return "admin/piatto.html";
 		}
 		else {
-			List<Materiale> listaIngredienti= ingredienteService.findAll();
+			List<Ingrediente> listaIngredienti= ingredienteService.findAll();
 			model.addAttribute("listaIngredienti", listaIngredienti);
 			return "admin/piattoForm.html";  //altrimenti ritorna alla pagina della form
 		}
@@ -107,14 +107,14 @@ public class PiattoController {
 
 
 	@Transactional
-	@PostMapping("/admin/piattoEdited/{id}")
-	public String modificaPiattoAdmin(@PathVariable Long id, @Valid @ModelAttribute("piatto") Attivita piatto, BindingResult bindingResults, Model model) {
+	@PostMapping("/admin/PiattoEdited/{id}")
+	public String modificaPiattoAdmin(@PathVariable Long id, @Valid @ModelAttribute("Piatto") Piatto Piatto, BindingResult bindingResults, Model model) {
 		if(!bindingResults.hasErrors()) {
-			Attivita vecchioPiatto = piattoService.findById(id);
-			vecchioPiatto.setNome(piatto.getNome());
-			vecchioPiatto.setDescrizione(piatto.getDescrizione());
-			this.piattoService.save(vecchioPiatto);
-			model.addAttribute("piatto", piatto);
+			Piatto vecchioPiatto = PiattoService.findById(id);
+			vecchioPiatto.setNome(Piatto.getNome());
+			vecchioPiatto.setDescrizione(Piatto.getDescrizione());
+			this.PiattoService.save(vecchioPiatto);
+			model.addAttribute("Piatto", Piatto);
 			return "admin/piatto.html";
 		} 
 		else {
@@ -124,38 +124,38 @@ public class PiattoController {
 	}	
 	@GetMapping("/admin/modificaPiatto/{id}")
 	public String getPiattoFormAdmin(@PathVariable Long id, Model model) {
-		model.addAttribute("piatto", piattoService.findById(id));
+		model.addAttribute("Piatto", PiattoService.findById(id));
 		return "admin/modificaPiattoForm.html";
 	}
 
 	@GetMapping("/admin/toDeletePiatto/{id}")
 	public String toDeletePiattoAdmin(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("piatto", piattoService.findById(id));
+		model.addAttribute("Piatto", PiattoService.findById(id));
 		return "admin/toDeletePiatto.html";
 	}
 
 	//	@Transactional
 	//	@GetMapping("/admin/deletePiatto/{id}")
-	//	public String deleteChefAdmin(@PathVariable("id")Long id, Piatto piatto, BindingResult bindingResult,Model model) {
-	//		piattoService.deletePiattoById(id);
-	//		model.addAttribute("piatti", piattoService.findAll());
+	//	public String deleteChefAdmin(@PathVariable("id")Long id, Piatto Piatto, BindingResult bindingResult,Model model) {
+	//		PiattoService.deletePiattoById(id);
+	//		model.addAttribute("piatti", PiattoService.findAll());
 	//		return "admin/piatti.html";
 	//	}
 
-	/*quando elimino un piatto, lo devo eliminare anche dalla lista di piatti nel buffet*/
+	/*quando elimino un Piatto, lo devo eliminare anche dalla lista di piatti nel buffet*/
 	@Transactional
 	@GetMapping(value="/admin/deletePiatto/{id}")
 	public String deleteBuffet(@PathVariable("id") Long id, Model model) {
-		Attivita piatto = this.piattoService.findById(id);
-		List<Buffet> elencoBuffet = piatto.getBuffets();
+		Piatto Piatto = this.PiattoService.findById(id);
+		List<Buffet> elencoBuffet = Piatto.getBuffets();
 		for(Buffet buffet : elencoBuffet) {
-			if(buffet.getPiatti().contains(piatto)) {
-				buffet.getPiatti().remove(piatto);
+			if(buffet.getPiatti().contains(Piatto)) {
+				buffet.getPiatti().remove(Piatto);
 				this.buffetService.save(buffet);
 			}
 		}
-		piattoService.deletePiattoById(id);
-		List<Attivita> listaPiatti = this.piattoService.findAll();
+		PiattoService.deletePiattoById(id);
+		List<Piatto> listaPiatti = this.PiattoService.findAll();
 		model.addAttribute("listaPiatti", listaPiatti);
 		return "admin/piatti.html";
 	}
@@ -165,27 +165,27 @@ public class PiattoController {
 
 
 
-	@GetMapping("admin/piattoAddIngrediente/{id}")
+	@GetMapping("admin/PiattoAddIngrediente/{id}")
 	public String buffetAddIngredienteAdmin(@PathVariable("id") Long id, Model model) {
-		Attivita piatto= this.piattoService.findById(id);
-		List<Materiale> ingredientiNelPiatto= piatto.getIngredienti();
-		List<Materiale> listaIngredienti = this.ingredienteService.findAll();
-		listaIngredienti.removeAll(ingredientiNelPiatto); //ottengo tutti gli ingredienti meno quello presenti nel piatto
-		model.addAttribute("piatto", piatto);
+		Piatto Piatto= this.PiattoService.findById(id);
+		List<Ingrediente> ingredientiNelPiatto= Piatto.getIngredienti();
+		List<Ingrediente> listaIngredienti = this.ingredienteService.findAll();
+		listaIngredienti.removeAll(ingredientiNelPiatto); //ottengo tutti gli ingredienti meno quello presenti nel Piatto
+		model.addAttribute("Piatto", Piatto);
 		model.addAttribute("listaIngredienti", listaIngredienti);
 		return "admin/piattoAddIngrediente.html";
 	}
-	/*aggiungo un ingrediente al piatto*/ 
+	/*aggiungo un ingrediente al Piatto*/ 
 	@PostMapping("admin/addIngrediente/{idPiatto}/{idIngrediente}")
 	public String addIngredienteAdmin(@PathVariable("idPiatto") Long idPiatto, @PathVariable("idIngrediente") Long idIngrediente, Model model) {
-		Attivita piatto = this.piattoService.findById(idPiatto);
-		model.addAttribute("piatto", piatto);
-		Materiale ingrediente = this.ingredienteService.findById(idIngrediente);
-		if(!piatto.getIngredienti().contains(ingrediente)) {
-			piatto.getIngredienti().add(ingrediente);
+		Piatto Piatto = this.PiattoService.findById(idPiatto);
+		model.addAttribute("Piatto", Piatto);
+		Ingrediente ingrediente = this.ingredienteService.findById(idIngrediente);
+		if(!Piatto.getIngredienti().contains(ingrediente)) {
+			Piatto.getIngredienti().add(ingrediente);
 		}
-		piattoService.save(piatto);
-		List <Materiale> listaIngredienti = piatto.getIngredienti();
+		PiattoService.save(Piatto);
+		List <Ingrediente> listaIngredienti = Piatto.getIngredienti();
 		model.addAttribute("listaIngredienti", listaIngredienti);
 		return "admin/piatto.html";
 	}

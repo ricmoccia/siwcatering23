@@ -5,16 +5,16 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import it.progetto.catering.model.Materiale;
-import it.progetto.catering.model.Attivita;
+import it.progetto.catering.model.Ingrediente;
+import it.progetto.catering.model.Piatto;
 
-public interface PiattoRepository  extends CrudRepository<Attivita, Long> {
+public interface PiattoRepository  extends CrudRepository<Piatto, Long> {
 
 	/*il metodo non va implementato, viene creato automaticamente dal nome del metodo*/
 	public boolean existsByNomeAndDescrizione(String nome, String descrizione);
 	
-	public Attivita findByNome(String nome);
+	public Piatto findByNome(String nome);
 
-	public List<Attivita> findByIngredientiContaining(Materiale i);
+	public List<Piatto> findByIngredientiContaining(Ingrediente i);
 	
 }

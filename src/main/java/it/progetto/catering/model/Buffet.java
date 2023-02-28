@@ -28,7 +28,7 @@ public class Buffet {
 	private Chef chef;
 	
 	@ManyToMany
-	private List<Attivita> piatti;
+	private List<Piatto> piatti;
 
 	public Long getId() {
 		return id;
@@ -63,11 +63,11 @@ public class Buffet {
 	}
 
 	
-	public List<Attivita> getPiatti() {
+	public List<Piatto> getPiatti() {
 		return piatti;
 	}
 
-	public void setPiatti(List<Attivita> piatti) {
+	public void setPiatti(List<Piatto> piatti) {
 		this.piatti = piatti;
 	}
 

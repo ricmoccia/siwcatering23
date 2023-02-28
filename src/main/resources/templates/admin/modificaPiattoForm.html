@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<form method="POST" th:action="@{/admin/piattoEdited/{id}(id=${piatto.id})}" th:object="${piatto}">
+	<form method="POST" th:action="@{/admin/PiattoEdited/{id}(id=${Piatto.id})}" th:object="${Piatto}">
 		<div class="error-text" th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> errori </p>
 		</div>

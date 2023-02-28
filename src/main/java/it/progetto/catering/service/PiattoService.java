@@ -8,61 +8,61 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.progetto.catering.model.Attivita;
+import it.progetto.catering.model.Piatto;
 import it.progetto.catering.repository.PiattoRepository;
 
 @Service
 public class PiattoService {
 
 	@Autowired
-	private PiattoRepository piattoRepository;
+	private PiattoRepository PiattoRepository;
 
 	@Transactional
-	public void save(Attivita piatto) {
-		piattoRepository.save(piatto);
+	public void save(Piatto Piatto) {
+		PiattoRepository.save(Piatto);
 	}
 	
 	@Transactional
-	public Attivita inserisci (Attivita piatto) {
-		return piattoRepository.save(piatto);
+	public Piatto inserisci (Piatto Piatto) {
+		return PiattoRepository.save(Piatto);
 	}
 	
-	public Attivita findById(Long id) {
+	public Piatto findById(Long id) {
 		//quando uso un metodo optional, devo usare get() per farmi ritornare l'oggetto
-		return piattoRepository.findById(id).get();
+		return PiattoRepository.findById(id).get();
 	}
 	
-	public Attivita findByNome (String nome) {
-		return piattoRepository.findByNome(nome);
+	public Piatto findByNome (String nome) {
+		return PiattoRepository.findByNome(nome);
 	}
 	
-	public List<Attivita> findByIds (List<Long> ids) {
-		var i = piattoRepository.findAllById(ids);
-		List<Attivita> listaPiatti = new ArrayList<>(); 
-		for(Attivita piatto : i)
-			listaPiatti.add(piatto);
+	public List<Piatto> findByIds (List<Long> ids) {
+		var i = PiattoRepository.findAllById(ids);
+		List<Piatto> listaPiatti = new ArrayList<>(); 
+		for(Piatto Piatto : i)
+			listaPiatti.add(Piatto);
 		return listaPiatti;
 	}
 	
-	public List<Attivita> findAll(){
-		List<Attivita> piatti= new ArrayList<>();
-		for(Attivita p: piattoRepository.findAll()) {
+	public List<Piatto> findAll(){
+		List<Piatto> piatti= new ArrayList<>();
+		for(Piatto p: PiattoRepository.findAll()) {
 			piatti.add(p);
 		}
 		return piatti;
 	}
 	
 	/*bisogna verificare se uno chef e gia nel database, devo chiedere al repository*/
-	public boolean alreadyExists(Attivita piatto) {
-		return piattoRepository.existsByNomeAndDescrizione(piatto.getNome(), piatto.getDescrizione());		 
+	public boolean alreadyExists(Piatto Piatto) {
+		return PiattoRepository.existsByNomeAndDescrizione(Piatto.getNome(), Piatto.getDescrizione());		 
 	}
 
 	@Transactional
-	public void delete(Attivita piatto) {
-		piattoRepository.delete(piatto);
+	public void delete(Piatto Piatto) {
+		PiattoRepository.delete(Piatto);
 	}
 	
 	public void deletePiattoById(Long id) {
-		piattoRepository.deleteById(id);
+		PiattoRepository.deleteById(id);
 	}	
 }

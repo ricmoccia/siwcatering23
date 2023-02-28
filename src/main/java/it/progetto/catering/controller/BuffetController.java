@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.progetto.catering.controller.validator.BuffetValidator;
 import it.progetto.catering.model.Buffet;
 import it.progetto.catering.model.Chef;
-import it.progetto.catering.model.Attivita;
+import it.progetto.catering.model.Piatto;
 import it.progetto.catering.service.BuffetService;
 import it.progetto.catering.service.ChefService;
 import it.progetto.catering.service.PiattoService;
@@ -30,7 +30,7 @@ public class BuffetController {
 	private BuffetService buffetService;
 
 	@Autowired
-	private PiattoService piattoService;
+	private PiattoService PiattoService;
 
 	@Autowired
 	private ChefService chefService;
@@ -47,7 +47,7 @@ public class BuffetController {
 		model.addAttribute("buffet", buffet);//la stringa mi indica che nelle viste, per recuperare l'ogg lo chiamiamo buffet
 		Chef chef= buffet.getChef();
 		model.addAttribute("chef", chef);//metto nel model lo chef che ha preparato il buffet
-		List<Attivita> listaPiatti=buffet.getPiatti();
+		List<Piatto> listaPiatti=buffet.getPiatti();
 		model.addAttribute("listaPiatti", listaPiatti); //metto nel model la lista di piatti nel buffet
 		return "buffet.html"; //la vista successiva mostra i dettagli del buffet
 	}
@@ -74,7 +74,7 @@ public class BuffetController {
 		model.addAttribute("buffet", buffet);//la stringa mi indica che nelle viste, per recuperare l'ogg lo chiamiamo buffet
 		Chef chef= buffet.getChef();
 		model.addAttribute("chef", chef);//metto nel model lo chef che ha preparato il buffet
-		List<Attivita> listaPiatti=buffet.getPiatti();
+		List<Piatto> listaPiatti=buffet.getPiatti();
 		model.addAttribute("listaPiatti", listaPiatti); //metto nel model la lista di piatti nel buffet
 		return "admin/buffet.html"; //la vista successiva mostra i dettagli del buffet
 	}
@@ -105,7 +105,7 @@ public class BuffetController {
 			return "admin/buffet.html";
 		}
 		else {
-			model.addAttribute("listaPiatti", piattoService.findAll());
+			model.addAttribute("listaPiatti", PiattoService.findAll());
 			model.addAttribute("listaChef", chefService.findAll());
 			return "admin/buffetForm.html";  //altrimenti ritorna alla pagina della form
 		}		
@@ -122,12 +122,12 @@ public class BuffetController {
 			vecchioBuffet.setPiatti(buffet.getPiatti());
 			this.buffetService.save(vecchioBuffet);
 			model.addAttribute("buffet", buffet);
-			List<Attivita> listaPiatti=buffet.getPiatti();
+			List<Piatto> listaPiatti=buffet.getPiatti();
 			model.addAttribute("listaPiatti", listaPiatti); //metto nel model la lista di piatti nel buffet
 			return "admin/buffet.html"; //pagina con buffet appena modificato
 		} 
 		else {
-			model.addAttribute("listaPiatti", piattoService.findAll());
+			model.addAttribute("listaPiatti", PiattoService.findAll());
 			model.addAttribute("listaChef", chefService.findAll());
 			return "admin/modificaBuffetForm.html"; // ci sono errori, torna alla form iniziale
 		}
@@ -136,7 +136,7 @@ public class BuffetController {
 	public String getBuffetFormAdmin(@PathVariable Long id, Model model) {
 		model.addAttribute("buffet", buffetService.findById(id));
 		model.addAttribute("listaChef", chefService.findAll());
-		model.addAttribute("listaPiatti", piattoService.findAll());
+		model.addAttribute("listaPiatti", PiattoService.findAll());
 		return "admin/modificaBuffetForm.html";
 	}
 
@@ -183,8 +183,8 @@ public class BuffetController {
 	@PostMapping(value="/admin/toRemovePiatto/{idBuffet}/{idPiatto}")
 	public String removePiatto(@PathVariable("idBuffet") Long idBuffet, @PathVariable("idPiatto") Long idPiatto, Model model) {
 		Buffet buffet = buffetService.findById(idBuffet);
-		Attivita piatto = piattoService.findById(idPiatto);
-		buffet.getPiatti().remove(piatto);//rimuovo il piatto dalla lista di piatti del buffet
+		Piatto Piatto = PiattoService.findById(idPiatto);
+		buffet.getPiatti().remove(Piatto);//rimuovo il Piatto dalla lista di piatti del buffet
 		this.buffetService.save(buffet);
 		model.addAttribute("buffet", buffet);
 		model.addAttribute("chef", buffet.getChef());
@@ -196,22 +196,22 @@ public class BuffetController {
 	@GetMapping("admin/buffetAddPiatto/{id}")
 	public String buffetAddPiattoAdmin(@PathVariable("id") Long id, Model model) {
 		Buffet buffet = this.buffetService.findById(id);
-		List<Attivita> piattiNelBuffet= buffet.getPiatti();
-		List<Attivita> listaPiatti = this.piattoService.findAll();
+		List<Piatto> piattiNelBuffet= buffet.getPiatti();
+		List<Piatto> listaPiatti = this.PiattoService.findAll();
 		listaPiatti.removeAll(piattiNelBuffet); //ottengo tutti i piatti meno quello presenti nel buffet
 		model.addAttribute("buffet", buffet);
 		model.addAttribute("listaPiatti", listaPiatti);
 		return "admin/buffetAddPiatto.html";
 	}
-	/*quando aggiungo un piatto al buffet*/ 
+	/*quando aggiungo un Piatto al buffet*/ 
 	@PostMapping("admin/addPiatto/{idBuffet}/{idPiatto}")
 	public String addPiattoAdmin(@PathVariable("idBuffet") Long idBuffet, @PathVariable("idPiatto") Long idPiatto, Model model) {
 		Buffet buffet = buffetService.findById(idBuffet);
-		Attivita piatto = piattoService.findById(idPiatto);
-		buffet.getPiatti().add(piatto);
+		Piatto Piatto = PiattoService.findById(idPiatto);
+		buffet.getPiatti().add(Piatto);
 		buffetService.save(buffet);
 		model.addAttribute("chef", buffet.getChef());	
-		List<Attivita> listaPiatti =  buffet.getPiatti();
+		List<Piatto> listaPiatti =  buffet.getPiatti();
 		model.addAttribute("piatti",listaPiatti);
 		model.addAttribute("buffet", buffet);
 		return "admin/buffet.html";

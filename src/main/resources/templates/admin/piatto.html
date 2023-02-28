@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="fragments/base.html :: headerfiles(title='Dettagli piatto')">
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli Piatto')">
 	<meta charset="UTF-8" />
 </head>
 
 <body>
 	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
 	<div>
-		<h2>Dettagli piatto</h2>
-		<div><span th:text="${piatto.nome}">pasta</span>
-			<span th:text="${piatto.descrizione}">primo</span>
+		<h2>Dettagli Piatto</h2>
+		<div><span th:text="${Piatto.nome}">pasta</span>
+			<span th:text="${Piatto.descrizione}">primo</span>
 		</div>  
 	</div>
 
 	<div>
-		<a href="piattoAddIngrediente.html" th:href="@{'/admin/piattoAddIngrediente'+'/'+${piatto.id}}">Aggiungi
-			ingrediente al piatto</a>
+		<a href="PiattoAddIngrediente.html" th:href="@{'/admin/PiattoAddIngrediente'+'/'+${Piatto.id}}">Aggiungi
+			ingrediente al Piatto</a>
 	</div>
 
-	<h4 th:if="${listaIngredienti!=null}">Elenco degli ingredienti presenti nel piatto:</h4>
+	<h4 th:if="${listaIngredienti!=null}">Elenco degli ingredienti presenti nel Piatto:</h4>
 	<table th:if="${listaIngredienti!=null}" class="tabella">
 		<thead>
 			<tr>

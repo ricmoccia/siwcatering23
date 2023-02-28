@@ -14,10 +14,10 @@
 	<h3 th:if="${listaPiatti.size()!=0}"> Piatti che si possono aggiungere:</h3>
 	<h3 th:unless="${listaPiatti.size()!=0}"> Non ci sono piatti che si possono aggiungere</h3>
 
-	<div th:each="piatto:${listaPiatti}">
-		<p> <a href="admin/piatto.html" th:href="@{'/admin/piatto'+'/'+${piatto.id}}" th:text="${piatto.nome}">nome
-				piatto</a> </p>
-		<form th:action="@{'/admin/addPiatto'+'/'+${buffet.id}+'/'+${piatto.id}}" method="POST">
+	<div th:each="Piatto:${listaPiatti}">
+		<p> <a href="admin/Piatto.html" th:href="@{'/admin/Piatto'+'/'+${Piatto.id}}" th:text="${Piatto.nome}">nome
+				Piatto</a> </p>
+		<form th:action="@{'/admin/addPiatto'+'/'+${buffet.id}+'/'+${Piatto.id}}" method="POST">
 			<span><button type="Aggiungi">Aggiungi</button></span>
 		</form>
 	</div>

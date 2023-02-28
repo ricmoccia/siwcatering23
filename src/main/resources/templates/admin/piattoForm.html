@@ -10,7 +10,7 @@
 
 	<div>
 		<div>
-			<form method="POST" th:action="@{/admin/piatto}" th:object="${piatto}">
+			<form method="POST" th:action="@{/admin/Piatto}" th:object="${Piatto}">
 				<div th:if="${#fields.hasGlobalErrors()}">
 					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> errori </p>
 				</div>

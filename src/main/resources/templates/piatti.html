@@ -24,16 +24,16 @@
 				<td colspan="3"> Non ci sono piatti </td>
 			</tr>
 			<!--se ci sono dei piatti, itera su tutti i piatti con for-each-->
-			<tr th:each="piatto : ${piatti}">
+			<tr th:each="Piatto : ${piatti}">
 				<td>
-					<a href="piatto.html/0" th:href="@{'/piatto' + '/' + ${piatto.id}}"
-						th:text="${piatto.nome} + ' ' +${piatto.descrizione}">pasta primo</a>
+					<a href="Piatto.html/0" th:href="@{'/Piatto' + '/' + ${Piatto.id}}"
+						th:text="${Piatto.nome} + ' ' +${Piatto.descrizione}">pasta primo</a>
 				</td>
 				
-				<td><a href="piatto.html" th:href="@{'/toDeletePiatto'+'/'+${piatto.id}}"
+				<td><a href="Piatto.html" th:href="@{'/toDeletePiatto'+'/'+${Piatto.id}}"
 						th:text="cancella">cancella</a>
 				</td>
-				<td><a href="piatto.html" th:href="@{'/modificaPiatto'+'/'+${piatto.id}}"
+				<td><a href="Piatto.html" th:href="@{'/modificaPiatto'+'/'+${Piatto.id}}"
 						th:text="modifica">modifica</a>
 				</td>
 			</tr>

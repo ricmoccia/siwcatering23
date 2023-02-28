@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="fragments/base.html :: headerfiles(title='piattoAddIngrediente')">
+<head th:replace="fragments/base.html :: headerfiles(title='PiattoAddIngrediente')">
 	<meta charset="UTF-8" />
 </head>
 
@@ -9,7 +9,7 @@
 	<header th:replace="fragments/base.html :: intestazioneAdmin"></header>
 
 
-	<h1 th:text="${piatto.nome}+' '+${piatto.descrizione}">nome e descrizione</h1>
+	<h1 th:text="${Piatto.nome}+' '+${Piatto.descrizione}">nome e descrizione</h1>
 
 	<h3 th:if="${listaIngredienti.size()!=0}"> Ingredienti che si possono aggiungere:</h3>
 	<h3 th:unless="${listaIngredienti.size()!=0}"> Non ci sono ingredienti che si possono aggiungere</h3>
@@ -17,7 +17,7 @@
 	<div th:each="ingrediente:${listaIngredienti}">
 		<p> <a href="admin/ingrediente.html" th:href="@{'/admin/ingrediente'+'/'+${ingrediente.id}}" th:text="${ingrediente.nome}">nome
 				ingrediente</a> </p>
-		<form th:action="@{'/admin/addIngrediente'+'/'+${piatto.id}+'/'+${ingrediente.id}}" method="POST">
+		<form th:action="@{'/admin/addIngrediente'+'/'+${Piatto.id}+'/'+${ingrediente.id}}" method="POST">
 			<span><button type="Aggiungi">Aggiungi</button></span>
 		</form>
 	</div>

@@ -15,7 +15,7 @@
 		</div>  
 	</div>
 	<div>
-		<a href="buffetAddPiatto.html" th:href="@{'/admin/buffetAddPiatto'+'/'+${buffet.id}}">Aggiungi piatto al
+		<a href="buffetAddPiatto.html" th:href="@{'/admin/buffetAddPiatto'+'/'+${buffet.id}}">Aggiungi Piatto al
 			buffet</a>
 	</div>
 	<div th:if="${buffet.getChef()!=null}">
@@ -33,16 +33,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="piatto:${listaPiatti}">
-				<td th:text="${piatto.nome}">nome</td>
-				<td th:text="${piatto.descrizione}">descrizione</td>
+			<tr th:each="Piatto:${listaPiatti}">
+				<td th:text="${Piatto.nome}">nome</td>
+				<td th:text="${Piatto.descrizione}">descrizione</td>
 
-				<td><a href="piatto.html" th:href="@{'/admin/piatto'+'/'+${piatto.id}}" th:text="dettagli">dettagli</a>
+				<td><a href="Piatto.html" th:href="@{'/admin/Piatto'+'/'+${Piatto.id}}" th:text="dettagli">dettagli</a>
 				</td>
-				<td><a href="piatto.html" th:href="@{'/admin/toDeletePiatto'+'/'+${piatto.id}}"
+				<td><a href="Piatto.html" th:href="@{'/admin/toDeletePiatto'+'/'+${Piatto.id}}"
 						th:text="cancella">cancella</a>
 				</td>
-				<td><a href="piatto.html" th:href="@{'/admin/modificaPiatto'+'/'+${piatto.id}}"
+				<td><a href="Piatto.html" th:href="@{'/admin/modificaPiatto'+'/'+${Piatto.id}}"
 						th:text="modifica">modifica</a>
 				</td>
 			</tr>

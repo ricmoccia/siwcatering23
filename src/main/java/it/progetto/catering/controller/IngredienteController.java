@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.progetto.catering.controller.validator.IngredienteValidator;
-import it.progetto.catering.model.Materiale;
-import it.progetto.catering.model.Attivita;
+import it.progetto.catering.model.Ingrediente;
+import it.progetto.catering.model.Piatto;
 import it.progetto.catering.service.IngredienteService;
 import it.progetto.catering.service.PiattoService;
 
@@ -27,7 +27,7 @@ public class IngredienteController {
 	private IngredienteService ingredienteService;
 	
 	@Autowired
-	private PiattoService piattoService;
+	private PiattoService PiattoService;
 
 	@Autowired
 	private IngredienteValidator ingredienteValidator;	
@@ -39,14 +39,14 @@ public class IngredienteController {
 
 	@GetMapping("/ingrediente/{id}")
 	public String getIngrediente(@PathVariable("id") Long id, Model model) {
-		Materiale ingrediente = ingredienteService.findById(id);
+		Ingrediente ingrediente = ingredienteService.findById(id);
 		model.addAttribute("ingrediente", ingrediente);//la stringa mi indica che nelle viste, per recuperare l'ogg lo chiamiamo persona
 		return "ingrediente.html"; //la vista successiva mostra i dettagli della persona
 	}
 
 	@GetMapping("/ingredienti")
 	public String getAllIngredienti(Model model) {
-		List<Materiale> listaIngredienti = ingredienteService.findAll();
+		List<Ingrediente> listaIngredienti = ingredienteService.findAll();
 		model.addAttribute("listaIngredienti", listaIngredienti);
 		return "ingredienti.html";
 	}
@@ -61,14 +61,14 @@ public class IngredienteController {
 
 	@GetMapping("/admin/ingrediente/{id}")
 	public String getIngredienteAdmin(@PathVariable("id") Long id, Model model) {
-		Materiale ingrediente = ingredienteService.findById(id);
+		Ingrediente ingrediente = ingredienteService.findById(id);
 		model.addAttribute("ingrediente", ingrediente);//la stringa mi indica che nelle viste, per recuperare l'ogg lo chiamiamo persona
 		return "admin/ingrediente.html"; //la vista successiva mostra i dettagli della persona
 	}
 
 	@GetMapping("/admin/ingrediente")
 	public String getAllIngredientiAdmin(Model model) {
-		List<Materiale> listaIngredienti = ingredienteService.findAll();
+		List<Ingrediente> listaIngredienti = ingredienteService.findAll();
 		model.addAttribute("listaIngredienti", listaIngredienti);
 		return "admin/ingredienti.html";
 	}
@@ -77,7 +77,7 @@ public class IngredienteController {
 
 
 	@PostMapping("/admin/ingrediente")
-	public String addIngredienteAdmin(@Valid @ModelAttribute("ingrediente") Materiale ingrediente, BindingResult bindingResult, Model model) {
+	public String addIngredienteAdmin(@Valid @ModelAttribute("ingrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		ingredienteValidator.validate(ingrediente, bindingResult);//se l'ingrediente che cerco di inserire e gia presente annullo l'inserimento, bindingResult da l'errore
 		//prima di salvare l'ogg. ingrediente dobbiamo verificare che non ci siano stati errori di validazione
 		if(!bindingResult.hasErrors()) {//se non ci sono stati err di validazione
@@ -107,9 +107,9 @@ public class IngredienteController {
 //	}
 	@Transactional
 	@PostMapping("/admin/ingredienteEdited/{id}")
-	public String editedIngrediente(@PathVariable Long id, @Valid @ModelAttribute("ingrediente") Materiale ingrediente, BindingResult bindingResult, Model model) {
+	public String editedIngrediente(@PathVariable Long id, @Valid @ModelAttribute("ingrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 
-		Materiale oldingrediente = ingredienteService.findById(id);
+		Ingrediente oldingrediente = ingredienteService.findById(id);
 
 		if(!ingrediente.getNome().equals(oldingrediente.getNome()))
 			ingredienteValidator.validate(ingrediente, bindingResult);
@@ -128,7 +128,7 @@ public class IngredienteController {
 
 	@GetMapping("/admin/modificaIngrediente/{id}")
 	public String editIngrediente(@PathVariable("id") Long id, Model model) {
-		Materiale ingrediente = ingredienteService.findById(id);
+		Ingrediente ingrediente = ingredienteService.findById(id);
 		model.addAttribute("ingrediente", ingrediente);
 		return "admin/modificaIngredienteForm.html";
 	}
@@ -149,18 +149,18 @@ public class IngredienteController {
 	//	}
 	@GetMapping(value="/admin/deleteIngrediente/{id}")
 	public String deleteBuffet(@PathVariable("id") Long id, Model model) {
-		Materiale ingrediente = this.ingredienteService.findById(id);
-		List<Attivita> piatti = this.piattoService.findAll();
+		Ingrediente ingrediente = this.ingredienteService.findById(id);
+		List<Piatto> piatti = this.PiattoService.findAll();
 		/*se i piatti contengono l'ingrediente, allora rimuovo l'ingrediente da essi*/
-		for(Attivita piatto : piatti) {
-			if(piatto.getIngredienti().contains(ingrediente)) {
-				piatto.getIngredienti().remove(ingrediente);
-				this.piattoService.save(piatto);
+		for(Piatto Piatto : piatti) {
+			if(Piatto.getIngredienti().contains(ingrediente)) {
+				Piatto.getIngredienti().remove(ingrediente);
+				this.PiattoService.save(Piatto);
 			}
 		}
 
 		ingredienteService.deleteById(id);
-		List<Materiale> listaIngredienti = this.ingredienteService.findAll();
+		List<Ingrediente> listaIngredienti = this.ingredienteService.findAll();
 		model.addAttribute("listaIngredienti", listaIngredienti);
 		return "admin/ingredienti.html";
 	}
@@ -168,7 +168,7 @@ public class IngredienteController {
 
 	@GetMapping("/admin/ingredienteForm")
 	public String getIngredienteFormAdmin(Model model) {
-		model.addAttribute("ingrediente", new Materiale());
+		model.addAttribute("ingrediente", new Ingrediente());
 		return "admin/ingredienteForm.html";
 	}
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="fragments/base.html :: headerfiles(title='Dettagli piatto')">
+<head th:replace="fragments/base.html :: headerfiles(title='Dettagli Piatto')">
 	<meta charset="UTF-8" />
 </head>
 
@@ -9,7 +9,7 @@
 	<header th:replace="fragments/base.html :: intestazione"></header>
 
 
-	<h2>Dettagli piatto</h2>
+	<h2>Dettagli Piatto</h2>
 
 	<table class="tabella">
 		<thead>
@@ -20,13 +20,13 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td th:text="${piatto.nome}">nome</td>
-				<td th:text="${piatto.descrizione}">descrizione</td>
+				<td th:text="${Piatto.nome}">nome</td>
+				<td th:text="${Piatto.descrizione}">descrizione</td>
 			</tr>
 		</tbody>
 	</table>
 	
-	<h4 th:if="${listaBuffet!=null}">Elenco degli ingredienti nel piatto:</h4>
+	<h4 th:if="${listaBuffet!=null}">Elenco degli ingredienti nel Piatto:</h4>
 	<table class="tabella">
 		<thead>
 			<tr>

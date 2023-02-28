@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.progetto.catering.model.Materiale;
+import it.progetto.catering.model.Ingrediente;
 import it.progetto.catering.repository.IngredienteRepository;
 
 @Service
@@ -18,39 +18,39 @@ public class IngredienteService {
 	private IngredienteRepository ingredienteRepository;
 
 	@Transactional
-	public void save(Materiale ingrediente) {
+	public void save(Ingrediente ingrediente) {
 		ingredienteRepository.save(ingrediente);
 	}
 	
 	@Transactional
-	public Materiale inserisci (Materiale ingrediente) {
+	public Ingrediente inserisci (Ingrediente ingrediente) {
 		return ingredienteRepository.save(ingrediente);
 	}
 	
-	public Materiale findById(Long id) {
+	public Ingrediente findById(Long id) {
 		//quando uso un metodo optional, devo usare get() per farmi ritornare l'oggetto
 		return ingredienteRepository.findById(id).get();
 	}
 	
-	public List<Materiale> findByNomeOrOrigine (String nome, String origine) {
+	public List<Ingrediente> findByNomeOrOrigine (String nome, String origine) {
 		return ingredienteRepository.findByNomeOrOrigine(nome, origine);
 	}
 	
-	public List<Materiale> findAll(){
-		List<Materiale> ingredienti= new ArrayList<>();
-		for(Materiale i: ingredienteRepository.findAll()) {
+	public List<Ingrediente> findAll(){
+		List<Ingrediente> ingredienti= new ArrayList<>();
+		for(Ingrediente i: ingredienteRepository.findAll()) {
 			ingredienti.add(i);
 		}
 		return ingredienti;
 	}
 	
 	/*bisogna verificare se uno chef e gia nel database, devo chiedere al repository*/
-	public boolean alreadyExists(Materiale ingrediente) {
+	public boolean alreadyExists(Ingrediente ingrediente) {
 		return ingredienteRepository.existsByNomeAndOrigineAndDescrizione(ingrediente.getNome(), ingrediente.getOrigine(), ingrediente.getDescrizione());		 
 	}
 
 	@Transactional
-	public void delete(Materiale ingrediente) {
+	public void delete(Ingrediente ingrediente) {
 		ingredienteRepository.delete(ingrediente);
 	}
 	

@@ -84,7 +84,6 @@ public class ChefController {
 	public String getAllChefsAdmin(Model model) {
 		List<Chef> chefs = chefService.findAll();
 		model.addAttribute("chefs", chefs);
-		model.addAttribute("numChef", chefs.size());
 		return "admin/chefs.html";
 	}
 

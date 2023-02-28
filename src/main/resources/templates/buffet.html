@@ -25,11 +25,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="piatto:${listaPiatti}">
-				<td><a href="piatto.html/0" th:href="@{'/piatto' + '/' + ${piatto.id}}"
-						th:text="${piatto.nome}">nome</a>
+			<tr th:each="Piatto:${listaPiatti}">
+				<td><a href="Piatto.html/0" th:href="@{'/Piatto' + '/' + ${Piatto.id}}"
+						th:text="${Piatto.nome}">nome</a>
 				</td>
-				<td th:text="${piatto.descrizione}">descrizione</td>
+				<td th:text="${Piatto.descrizione}">descrizione</td>
 			</tr>
 		</tbody>
 	</table>
